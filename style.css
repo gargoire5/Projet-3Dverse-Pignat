@@ -29,14 +29,37 @@ body {
   width: auto;
   height: auto;
   overflow: auto; 
-  background-color: rgb(0,0,0); 
+  background-color: transparent; 
+}
+
+@media only screen and (max-width: 600px) {
+  .modal {
+    width: auto;
+    height: auto;
+    font-size: small;
+  }
+  .content{
+    width: auto;
+    height: auto;
+    margin: 0%!important;
+  }
+  .modal .content h1{
+    font-size: small;
+  }
 }
 
 .content{
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 12%; /* 15% from the top and centered */
   padding: 20px;
-  border: 1px solid #888;
-  width: 80%; /* Could be more or less, depending on screen size */
+  border: 1px solid white;
+  width: auto;
+  height: auto;
+  background-color: grey;
+  opacity: 0.9;
+}
+
+.modal .content h1{
+  text-align: center;
 }
 
 .canvas-container {

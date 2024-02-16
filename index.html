@@ -11,7 +11,105 @@
   </head>
 
   <body>
-    
+    <script>
+
+    // when video ends
+    let currentTime;
+    function onPlayerStateChange(event) {
+        if ((event.data === YT.PlayerState.PLAYING)&&(initOk)) {
+          // Mettez à jour la position temporelle toutes les secondes
+          setInterval(() => {
+              currentTime = player.getCurrentTime();
+              console.log("Position temporelle : " + currentTime.valueOf() + " secondes");
+
+              if (currentTime.valueOf()>((3*60)+51)){
+                    etatVideo = 15;
+              }else if (currentTime.valueOf()>((3*60)+36)){
+                    etatVideo = 14;
+              }else if (currentTime.valueOf()>((3*60)+29)){
+                    etatVideo = 13;
+              }else if (currentTime.valueOf()>((3*60)+23)){
+                    etatVideo = 12;
+              }else if (currentTime.valueOf()>((3*60)+18)){
+                    etatVideo = 11;
+              }else if (currentTime.valueOf()>((2*60)+30)){
+                    etatVideo = 10;
+              }else if (currentTime.valueOf()>((2*60)+26)){
+                    etatVideo = 9;
+              }else if (currentTime.valueOf()>((2*60)+12)){
+                    etatVideo = 8;
+              }else if (currentTime.valueOf()>((2*60)+2)){
+                    etatVideo = 7;
+              }else if (currentTime.valueOf()>(60+40)){
+                    etatVideo = 6;
+              }else if (currentTime.valueOf()>(60+36)){
+                    etatVideo = 5;
+              }else if (currentTime.valueOf()>(60+16)){
+                    etatVideo = 4;
+              }else if (currentTime.valueOf()>55){
+                    etatVideo = 3;
+              }else if (currentTime.valueOf()>41){
+                    etatVideo = 2;
+              }else{
+                    etatVideo = 1;
+              };
+
+              if (etatTempo!=etatVideo){
+                switch(etatVideo){
+                  case 1 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(overview[0]);
+                  break; 
+                  case 2 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(bouilleur[0]);
+                  break; 
+                  case 3 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(MiseSousTension[0]);
+                  break; 
+                  case 4 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(ExplicationDalleDoutons[0]);
+                  break; 
+                  case 5 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(Marche[0]);
+                  break; 
+                  case 6 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(BoutonnerieAlarme[0]);
+                  break; 
+                  case 7 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(ReglageDebitEauFroide[0]);
+                  break; 
+                  case 8 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(AlarmeDebitEauFroide[0]);
+                  break; 
+                  case 9 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(FermetureBouilleur[0]);
+                  break; 
+                  case 10 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(DemarrageChauffeDalle[0]);
+                  break; 
+                  case 11 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(DemarrageChauffebouilleur[0]);
+                  break; 
+                  case 12 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(ChangementConsigne[0]);
+                  break; 
+                  case 13 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(Ebullition[0]);
+                  break; 
+                  case 14 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(MiseEnRegime[0]);
+                  break; 
+                  case 15 :
+                    SDK3DVerse.extensions.LabelDisplay.onLabelClicked(TeteReflux[0]);
+                  break; 
+                }
+              }
+              etatTempo=etatVideo;
+
+          }, 1000);
+      }
+  }
+
+</script>
     <div class="canvas-container">
       <!-- CANVAS -->
       <canvas
@@ -20,21 +118,6 @@
         oncontextmenu="event.preventDefault()"
       ></canvas>
       
-    </div>
-    <!-- ScreenDisplay -->
-    <div class="tv-container" id="tvContainer">
-      <div class="cross-container">
-        <button id="closeScreen"></button>
-      </div>
-      <div class="global-square">
-        <div class="square-container">
-          <div class="square"></div>
-          <div class="square"></div>
-        </div>
-        <div class="square-container">
-          <div class="square"></div>
-          <div class="square"></div>
-        </div>
     </div>
 
     <!-- Modal machine -->
@@ -91,9 +174,13 @@
       </div>
     </div>
 
+    
+
 
     <!-- SDK 3DVERSE -->
     <script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse.js"></script>
+    <script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse_ViewportDomOverlay_Ext.js"></script>
+		<script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse_LabelDisplay_Ext.js"></script>
 
     <!-- APP ENTRYPOINT -->
     <script src="./3DVerseConfig/main.js" type="module"></script>

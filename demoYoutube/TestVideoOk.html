@@ -1,0 +1,207 @@
+<html>
+<head>
+<meta charset="utf-8"/>
+<title>Youtube</title>
+<style type="text/css">
+</style>
+</head>
+<body>
+<div id="player_container"></div>
+<script src="http://www.youtube.com/player_api"></script>
+ 
+<script>
+ 
+        // create youtube player
+        var player;
+        var t=0;
+	let initOk=0;
+	let etatVideo=0;
+	let etatTempo=-1;
+	let overview,bouilleur,MiseSousTension,ExplicationDalleDoutons,Marche,BoutonnerieAlarme,ReglageDebitEauFroide,AlarmeDebitEauFroide;
+	let FermetureBouilleur,DemarrageChauffeDalle,DemarrageChauffebouilleur,ChangementConsigne,Ebullition,MiseEnRegime,TeteReflux;
+
+        function onYouTubePlayerAPIReady() {
+                
+                Id='faeT9MF1OWQ';
+              
+                t++;
+                if (document.getElementById("player")) {
+                        document.getElementById("player_container").removeChild(document.getElementById("player"));
+                }
+                var div=document.createElement("div");
+                div.id="player";
+                document.getElementById("player_container").appendChild(div);
+                player = new YT.Player('player', {
+                        height: '390',
+                        width: '640',
+                        videoId:Id,
+                        events: {
+                        'onReady': onPlayerReady,
+                        'onStateChange': onPlayerStateChange
+                        }
+                });
+        }
+ 
+        // autoplay video
+        function onPlayerReady(event) {
+                event.target.playVideo();
+        }
+ 
+        // when video ends
+	let currentTime;
+        function onPlayerStateChange(event) {
+            if ((event.data === YT.PlayerState.PLAYING)&&(initOk)) {
+
+                // Mettez à jour la position temporelle toutes les secondes
+                setInterval(() => {
+                    currentTime = player.getCurrentTime();
+                    console.log("Position temporelle : " + currentTime.valueOf() + " secondes");
+
+			if (currentTime.valueOf()>((3*60)+51)){
+    				etatVideo = 15;
+			}else if (currentTime.valueOf()>((3*60)+36)){
+    				etatVideo = 14;
+			}else if (currentTime.valueOf()>((3*60)+29)){
+    				etatVideo = 13;
+			}else if (currentTime.valueOf()>((3*60)+23)){
+    				etatVideo = 12;
+			}else if (currentTime.valueOf()>((3*60)+18)){
+    				etatVideo = 11;
+			}else if (currentTime.valueOf()>((2*60)+30)){
+    				etatVideo = 10;
+			}else if (currentTime.valueOf()>((2*60)+26)){
+    				etatVideo = 9;
+			}else if (currentTime.valueOf()>((2*60)+12)){
+    				etatVideo = 8;
+			}else if (currentTime.valueOf()>((2*60)+2)){
+    				etatVideo = 7;
+			}else if (currentTime.valueOf()>(60+40)){
+    				etatVideo = 6;
+			}else if (currentTime.valueOf()>(60+36)){
+    				etatVideo = 5;
+			}else if (currentTime.valueOf()>(60+16)){
+    				etatVideo = 4;
+			}else if (currentTime.valueOf()>55){
+    				etatVideo = 3;
+			}else if (currentTime.valueOf()>41){
+    				etatVideo = 2;
+			}else{
+    				etatVideo = 1;
+			};
+
+			if (etatTempo!=etatVideo){
+				switch(etatVideo){
+					case 1 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(overview[0]);
+					break; 
+					case 2 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(bouilleur[0]);
+					break; 
+					case 3 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(MiseSousTension[0]);
+					break; 
+					case 4 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(ExplicationDalleDoutons[0]);
+					break; 
+					case 5 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(Marche[0]);
+					break; 
+					case 6 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(BoutonnerieAlarme[0]);
+					break; 
+					case 7 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(ReglageDebitEauFroide[0]);
+					break; 
+					case 8 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(AlarmeDebitEauFroide[0]);
+					break; 
+					case 9 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(FermetureBouilleur[0]);
+					break; 
+					case 10 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(DemarrageChauffeDalle[0]);
+					break; 
+					case 11 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(DemarrageChauffebouilleur[0]);
+					break; 
+					case 12 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(ChangementConsigne[0]);
+					break; 
+					case 13 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(Ebullition[0]);
+					break; 
+					case 14 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(MiseEnRegime[0]);
+					break; 
+					case 15 :
+						SDK3DVerse.extensions.LabelDisplay.onLabelClicked(TeteReflux[0]);
+					break; 
+				}
+			}
+			etatTempo=etatVideo;
+
+                }, 1000);
+            }
+        }
+ 
+</script>
+<div class="canvas-container">
+        <!-- CANVAS -->
+        <canvas
+            id="display-canvas"
+            oncontextmenu="event.preventDefault()"
+            style="width: 640; height: 640;"
+            tabindex="1"
+        ></canvas>
+        </div>
+            
+        <!-- LIVELINK SDK -->
+        <script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse.js"></script>
+    	<script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse_ViewportDomOverlay_Ext.js"></script>
+	<script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse_LabelDisplay_Ext.js"></script>
+    
+        <!-- APP ENTRYPOINT -->
+        <script>
+	
+        async function initApp() {
+            await SDK3DVerse.joinOrStartSession({
+                userToken: "public_VCUZStQnCAbK-JAz",
+                sceneUUID: "4325b6f8-1a88-4506-9b6b-edbe5c7eac95",
+                canvas: document.getElementById("display-canvas"),
+                viewportProperties: {
+                    defaultControllerType: SDK3DVerse.controller_type.editor,
+                },
+            });
+
+    	await SDK3DVerse.installExtension(SDK3DVerse_ViewportDomOverlay_Ext);
+    	await SDK3DVerse.installExtension(SDK3DVerse_LabelDisplay_Ext);
+
+	overview = await SDK3DVerse.engineAPI.findEntitiesByEUID("a0d2c21a-585e-4bb9-a5b9-b434b3dadedf");
+	bouilleur = await SDK3DVerse.engineAPI.findEntitiesByEUID("ccd037bf-fb16-4e6c-9b42-45182ebbae52");
+	MiseSousTension = await SDK3DVerse.engineAPI.findEntitiesByEUID("5feba3ad-dab8-45db-981f-b4c68911e247");
+	ExplicationDalleDoutons = await SDK3DVerse.engineAPI.findEntitiesByEUID("23571ab9-e8cb-42b3-a1f9-39a41586e27d");
+	Marche = await SDK3DVerse.engineAPI.findEntitiesByEUID("0f560df4-80fe-473e-b054-0d4561c51f3f");
+	BoutonnerieAlarme = await SDK3DVerse.engineAPI.findEntitiesByEUID("24e08489-8982-4145-9198-620836272670");
+	ReglageDebitEauFroide = await SDK3DVerse.engineAPI.findEntitiesByEUID("ec98c9c5-c6aa-4e26-a644-a2cd1865773a");
+	AlarmeDebitEauFroide = await SDK3DVerse.engineAPI.findEntitiesByEUID("091cabb0-f6cb-4f17-bc16-b279684e36b4");
+	FermetureBouilleur = await SDK3DVerse.engineAPI.findEntitiesByEUID("091cabb0-f6cb-4f17-bc16-b279684e36b4");
+	DemarrageChauffeDalle = await SDK3DVerse.engineAPI.findEntitiesByEUID("fe369691-6dc0-4848-b520-826fc5950cac");
+	DemarrageChauffebouilleur = await SDK3DVerse.engineAPI.findEntitiesByEUID("0f560df4-80fe-473e-b054-0d4561c51f3f");
+	ChangementConsigne = await SDK3DVerse.engineAPI.findEntitiesByEUID("fe369691-6dc0-4848-b520-826fc5950cac");
+	Ebullition = await SDK3DVerse.engineAPI.findEntitiesByEUID("259179b1-9cee-4bcb-8217-31c8434aa9f5");
+	MiseEnRegime = await SDK3DVerse.engineAPI.findEntitiesByEUID("45990004-8f70-443b-8f13-0b7963238cc6");
+	TeteReflux = await SDK3DVerse.engineAPI.findEntitiesByEUID("f7a8cf21-7f1f-4506-9402-a0a06e5e2553");
+
+	initOk = 1;
+	console.log("Pos : " + 1 + " done");
+
+        }
+	
+        window.addEventListener("load", initApp);
+	 console.log("Pos : " + 0 + " done");
+
+
+        </script>
+
+</body>
+</html>

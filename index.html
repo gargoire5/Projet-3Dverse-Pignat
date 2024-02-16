@@ -20,11 +20,29 @@
         oncontextmenu="event.preventDefault()"
       ></canvas>
     </div>
+    
+    <!-- ScreenDisplay -->
+    <div class="tv-container" id="tvContainer">
+      <div class="cross-container">
+        <button id="closeScreen"></button>
+      </div>
+      <div class="global-square">
+        <div class="square-container">
+          <div class="square"></div>
+          <div class="square"></div>
+        </div>
+        <div class="square-container">
+          <div class="square"></div>
+          <div class="square"></div>
+        </div>
+      </div>
+    </div>
 
-    <!-- fiche modal dvi3000 -->
-    <div id="myModal" class="modal">
+    <!-- Modal machine -->
+    <!-- fiche modal tpc3000 -->
+    <div id="dvi3000" class="modal">
       <div class="content">
-        <h1 class="nomMachine">Batch continuous distillation</h1>
+        <h1 class="nomMachine">Operate a continuous distillation process</h1>
         <p class="infosMachine">
           <ul>
             <li><p>Metering pump.</p></li>
@@ -33,7 +51,7 @@
             <li><p>Glass shell heater equipped with a resistance overflow tube.</p></li>
             <li><p>Glass Column with Multiknit packing and SS Sampling flange.</p></li>
             <li><p>Glass reflux head, with reflux dividing solenoid valve.</p></li>
-
+            
             <li><h2>Instrumentation</h2></li>
             <li><p>Temperature probes Pt100Ω.</p></li>
             <li><p>Differential pressure transmitter.</p></li>
@@ -43,44 +61,44 @@
           </ul>
         </p>
       </div>
-  </div>
-
-  <!-- fiche modal dupb1000 -->
-  <div id="myModal" class="modal">
-    <div class="content">
-      <h1 class="nomMachine">Bioethanol pilot 25L</h1>
-      <p class="infosMachine">
-        <ul>
-          <li><h2>Pretreatment</h2></li>
-          <li><p>SS reactor, 25 L double jacket</p></li>
-          <li><p>Stirring motor, variable speed.</p></li>
-          <li><p>Pneumatic pump.</p></li>
-          <li><p>Heating group</p></li>
-
-          <li><h2>Fermentation</h2></li>
-          <li><p>SS fermentation reactor, 25 L.</p></li>
-          <li><p>Stirring motor, variable speed.</p></li>
-          <li><p>Pneumatic pump.</p></li>
-          <li><p>Dosing pump.</p></li>
-          <li><p>Reagent circuit.</p></li>
-
-          <li><h2>Distillation</h2></li>
-          <li><p>SS boiler, 10 L, double jacket.</p></li>
-          <li><p>Stirring motor, variable speed.</p></li>
-          <li><p>Glass column, SS Multiknit packing</p></li>
-          <li><p>Condenser, glass shell, SS coil.</p></li>
-          <li><p>Cooling line.</p></li>
-
-          <li><h2>Instrumentation</h2></li>
-          <li><p>2 flowmeters.</p></li>
-          <li><p>Manometers.</p></li>
-          <li><p>pH electrode.</p></li>
-          <li><p>6 temperature probes Pt100Ω.</p></li>
-        </ul>
-      </p>
     </div>
-</div>
 
+    <!-- fiche modal upb1000 -->
+    <div id="upb1000" class="modal">
+      <div class="content">
+        <h1 class="nomMachine">Bioethanol pilot 25L</h1>
+        <p class="infosMachine">
+          <ul>
+            <li><h2>Pretreatment</h2></li>
+            <li><p>SS reactor, 25 L double jacket</p></li>
+            <li><p>Stirring motor, variable speed.</p></li>
+            <li><p>Pneumatic pump.</p></li>
+            <li><p>Heating group</p></li>
+
+            <li><h2>Fermentation</h2></li>
+            <li><p>SS fermentation reactor, 25 L.</p></li>
+            <li><p>Stirring motor, variable speed.</p></li>
+            <li><p>Pneumatic pump.</p></li>
+            <li><p>Dosing pump.</p></li>
+            <li><p>Reagent circuit.</p></li>
+
+            <li><h2>Instrumentation</h2></li>
+            <li><p>2 flowmeters.</p></li>
+            <li><p>Manometers.</p></li>
+            <li><p>pH electrode.</p></li>
+            <li><p>6 temperature probes Pt100Ω.</p></li>
+          </ul>
+        </p>
+      </div>
+    </div>
+
+     <!-- buttons machines -->
+    <div class="containersButton" id="containersButton">
+      <div class="buttons" id="buttons" >
+          <button id="demarrage">Processus Demarrage </button>
+          <button id="description">Description Machine</button>
+      </div>
+    </div>
 
     <!-- SDK 3DVERSE -->
     <script src="https://cdn.3dverse.com/legacy/sdk/stable/SDK3DVerse.js"></script>
@@ -89,6 +107,5 @@
     <script src="./3DVerseConfig/main.js" type="module"></script>
     <script src="DataBase.js" type="module"></script>
     <script src="script.js" type="module"></script>
-    <script src="modal.js" type="module"></script>
   </body>
 </html>
